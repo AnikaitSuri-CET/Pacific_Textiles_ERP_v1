@@ -9,8 +9,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('role_name')->unique();    //Unique roles: superadmin, admin, users
+            $table->id();                                  // Auto increment
+            $table->string('role_name', 100);              // Human readable role-name
+            $table->string('slug', 50)->unique();          // System usable unique identifier
+            $table->text('description')->nullable();       // Explains responsibility
+            $table->boolean('is_active')->default(true);   // Role availability toggle
             $table->timestamps();
         });
     }
